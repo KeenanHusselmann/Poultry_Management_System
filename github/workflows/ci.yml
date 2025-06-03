@@ -45,6 +45,10 @@ jobs:
           cp .env.example .env
           php artisan key:generate
 
+      - name: Create test database
+        run:
+          touch database/test.sqlite    
+
       # Runs the Laravel tests
       - name: Run tests
         run: php artisan test
