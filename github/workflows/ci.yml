@@ -20,7 +20,7 @@ jobs:
       # Checks out your repository code into the runner environment
       - uses: actions/checkout@v3
 
-      # Sets up the PHP environment with specified version and extensions
+     
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -28,10 +28,7 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv
           coverage: none
 
-      # Installs Composer dependencies.
-      # Assuming your Laravel app's root (where composer.json is) is the repository's root.
-      # If your Laravel app is in a sub-directory (e.g., 'Poultry-managment-main' inside the repo),
-      # you would add 'working-directory: Poultry-managment-main' here and in subsequent steps.
+    
       - name: Install Composer Dependencies
         run: composer install -n --prefer-dist
 
