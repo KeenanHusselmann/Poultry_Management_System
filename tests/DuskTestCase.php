@@ -63,4 +63,10 @@ abstract class DuskTestCase extends BaseTestCase
         return isset($_SERVER['DUSK_START_MAXIMIZED']) ||
                isset($_ENV['DUSK_START_MAXIMIZED']);
     }
+
+    protected function baseUrl()
+{
+    return 'http://127.0.0.1:8000';
+}
+
 }
