@@ -24,7 +24,7 @@ class SubmitChemicalFormTest extends DuskTestCase
                 ->type('purchase_date', '2024-06-01')
                 ->type('quantity', '500')
                 ->press('Save')
-                // Add either of these depending on how your app behaves after saving
+           
                  ->assertRouteIs('admin.create-chemicals.index') // If redirected
                 
                 ;

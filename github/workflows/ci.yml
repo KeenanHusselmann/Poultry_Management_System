@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  # Triggers the workflow on pushes to the 'main' branch
+  push:
+    branches:
+      - main
+
+  # Triggers the workflow on pull requests targeting the 'main' branch
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  tests:
+    name: Run tests
+    # Using 'ubuntu-latest' is generally recommended for PHP/Laravel
+    # as it's a more common and stable environment for these applications.
+    # If you specifically need Windows, keep 'runs-on: windows-latest'.
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks out your repository code into the runner environment
+      - uses: actions/checkout@v3
+
+      # Sets up the PHP environment with specified version and extensions
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv # Corrected 'inconv' to 'iconv'
+          coverage: none # No code coverage generation in this run
+
+      # Installs Composer dependencies.
+      # Assuming your Laravel app's root (where composer.json is) is the repository's root.
+      # If your Laravel app is in a sub-directory (e.g., 'Poultry-managment-main' inside the repo),
+      # you would add 'working-directory: Poultry-managment-main' here and in subsequent steps.
+      - name: Install Composer Dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      # Prepares the Laravel application for testing
+      - name: Prepare Laravel Application
+        # Using '|' allows for multi-line commands
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      # Runs the Laravel tests
+      - name: Run tests
+        run: php artisan test
