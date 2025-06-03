@@ -50,6 +50,9 @@ jobs:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
           APP_URL: http://localhost:8000 # Important: Tell Dusk where your app is running
-        run: php artisan dusk
+        run: 
+            php artisan serve
+            vendor\laravel\dusk\bin\chromedriver-win.exe --port=9515
+            php artisan dusk
 
       
